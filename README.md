@@ -1,12 +1,7 @@
-# First Michoacán School of Mathematical Biology — 2025
+# Educational Resources
 
-Welcome!
+Open educational resources developed by BioSDyn in mathematical modeling, biostatistics, epidemiology, and public health.
 
-This folder contains the material from the theoretical class on **mathematical modeling in biology and epidemiology** presented during the First Michoacán School of Mathematical Biology.
+## Resources
 
-The class introduces basic mathematical models and their applications to biological and epidemiological problems.
-
-**Instructor:** Imelda Trejo Lorenzo
-**Language:** Spanish
-
-📄 [Day 1 – Theoretical Lecture](day1_theoretical_lecture.pdf)
+* [Michoacán School of Mathematical Biology — 2025](michoacan-school-2025/)
