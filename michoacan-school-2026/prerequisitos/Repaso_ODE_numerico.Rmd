@@ -1,0 +1,170 @@
+---
+title: "Repaso breve: solución numérica de ecuaciones diferenciales"
+subtitle: "Modelo SIR en R"
+output:
+  html_document:
+    toc: false
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 4)
+```
+
+# Propósito
+
+Este material prepara el trabajo del Módulo 1 (Modelos matemáticos) de la Escuela Michoacana de Biología Matemática. La meta es sencilla: entender **qué son los parámetros, las condiciones iniciales y las ecuaciones diferenciales de un modelo**, y **cómo se usa un programa para resolverlas numéricamente**.
+
+- **Estudiantes del Proyecto 1:** trabajan este documento en **R y RStudio** y deben llegar con todo instalado y funcionando.
+- **Estudiantes de los demás proyectos:** lenguaje libre. Aquí hay un único código de referencia en R; reprodúcelo en Python, MATLAB, Julia o el lenguaje que conozcas.
+
+# Preparar R y RStudio
+
+Instala **primero R** y después RStudio Desktop, con las opciones predeterminadas:
+
+- R: <https://cran.r-project.org/>
+- RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
+
+Abre RStudio e instala el paquete `deSolve` (**una sola vez**, en la consola, con internet):
+
+```{r instalar, eval=FALSE}
+install.packages("deSolve")
+```
+
+Comprueba la instalación:
+
+```{r comprobar}
+R.version.string
+library(deSolve)
+packageVersion("deSolve")
+curve(sin(x), from = 0, to = 2 * pi)
+```
+
+Está lista si `library(deSolve)` no muestra error y aparece la gráfica del seno. Para ejecutar una línea usa `Ctrl + Enter` (`Cmd + Enter` en Mac); para un bloque completo, el botón *Run Current Chunk*; para generar el documento, *Knit*. Si algo falla, copia el mensaje de error y avísalo antes de la Escuela.
+
+# El modelo SIR
+
+Una población cerrada de $N$ personas se divide en susceptibles ($S$), infectados ($I$) y recuperados ($R$):
+
+$$
+\frac{dS}{dt} = -\beta\frac{SI}{N}, \qquad
+\frac{dI}{dt} = \beta\frac{SI}{N}-\gamma I, \qquad
+\frac{dR}{dt} = \gamma I .
+$$
+
+| | Símbolo | Significado | Valor |
+|---|---|---|---|
+| **Parámetros** | $\beta$ | tasa de transmisión | 0.5 |
+| | $\gamma$ | tasa de recuperación (el periodo infeccioso promedio es $1/\gamma$) | 0.2 |
+| | $N$ | población total (constante) | 1000 |
+| **Condiciones iniciales** | $S(0),\ I(0),\ R(0)$ | estado de la población al inicio | 990, 10, 0 |
+
+Los parámetros definen el modelo y las condiciones iniciales eligen una solución: fijados ambos, la solución es única (ver el teorema de existencia y unicida para EDO).
+
+## Código de referencia
+
+El código siempre sigue los mismos 5 pasos: ecuaciones, datos, solución, gráfica y verificación.
+
+```{r sir}
+library(deSolve)
+
+# 1. ECUACIONES: dS, dI y dR son las derivadas dS/dt, dI/dt y dR/dt
+sir <- function(t, state, parms) {
+  with(as.list(c(state, parms)), {
+    dS <- -beta * S * I / N
+    dI <-  beta * S * I / N - gamma * I
+    dR <-  gamma * I
+    list(c(dS, dI, dR))
+  })
+}
+
+# 2. DATOS: parámetros, condiciones iniciales y tiempos
+parms <- c(beta = 0.5, gamma = 0.2, N = 1000)
+state <- c(S = 990, I = 10, R = 0)
+times <- seq(0, 150, by = 0.5)
+
+# 3. SOLUCIÓN NUMÉRICA
+sol <- as.data.frame(ode(y = state, times = times, func = sir, parms = parms))
+
+# 4. GRÁFICA
+matplot(sol$time, sol[, c("S", "I", "R")], type = "l", lty = 1, lwd = 2,
+        col = c("blue", "red", "darkgreen"),
+        xlab = "Tiempo (días)", ylab = "Número de personas", main = "Modelo SIR")
+legend("right", c("Susceptibles", "Infectados", "Recuperados"),
+       col = c("blue", "red", "darkgreen"), lty = 1, lwd = 2)
+
+# 5. VERIFICACIÓN: S + I + R debe ser igual a N en todo momento
+range(rowSums(sol[, c("S", "I", "R")]))
+```
+
+`ode()` recibe la condición inicial (`y`), los tiempos (`times`), la función con las ecuaciones (`func`) y los parámetros (`parms`), y devuelve el valor de $S$, $I$ y $R$ en cada tiempo. En otros lenguajes, el equivalente es `solve_ivp` (Python, SciPy), `ode45` (MATLAB) o `solve` (Julia, DifferentialEquations.jl).
+
+**Para comprobar tu código** (en cualquier lenguaje): debes obtener $S+I+R=1000$ en todo momento y un pico de unos **238 infectados alrededor del día 16–17**.
+
+Para explorar, cambia los valores del paso 2 y vuelve a ejecutar.
+
+# Opcional: otro ejemplo y un modelo propio
+
+## Ejemplo: crecimiento logístico
+
+$$\frac{dx}{dt}=rx\left(1-\frac{x}{K}\right)$$
+
+Aquí $r$ es la tasa de crecimiento, $K$ la capacidad de carga y $x(0)$ la condición inicial. Corre este código y observa hacia dónde tiende la población:
+
+```{r logistico}
+# 1. ECUACIÓN
+logistico <- function(t, state, parms) {
+  with(as.list(c(state, parms)), {
+    dx <- r * x * (1 - x / K)
+    list(dx)
+  })
+}
+
+# 2. DATOS
+parms <- c(r = 0.8, K = 100)
+state <- c(x = 5)
+times <- seq(0, 15, by = 0.1)
+
+# 3. SOLUCIÓN
+sol_log <- as.data.frame(ode(y = state, times = times, func = logistico, parms = parms))
+
+# 4. GRÁFICA
+plot(sol_log$time, sol_log$x, type = "l", lwd = 2,
+     xlab = "Tiempo", ylab = "Población", main = "Crecimiento logístico")
+abline(h = parms["K"], lty = 2)
+```
+
+## Tu propio modelo
+
+Elige un modelo sencillo que conozcas (por ejemplo, Lotka–Volterra o una pesquería con cosecha constante, $x'=rx(1-x/K)-H$). Antes de resolverlo, identifica sus **variables**, **parámetros** y **condiciones iniciales**. Luego completa la plantilla y córrela:
+
+```{r plantilla, eval=FALSE}
+# 1. ECUACIONES: una derivada por variable
+mi_modelo <- function(t, state, parms) {
+  with(as.list(c(state, parms)), {
+    dx <- ______________
+    list(c(dx))
+  })
+}
+
+# 2. DATOS
+parms <- c(______)      # parámetros, con nombre
+state <- c(______)      # una condición inicial por variable, con nombre
+times <- seq(0, ___, by = ___)
+
+# 3. SOLUCIÓN
+sol <- as.data.frame(ode(y = state, times = times, func = mi_modelo, parms = parms))
+
+# 4. GRÁFICA
+matplot(sol$time, sol[, -1], type = "l", lty = 1, lwd = 2,
+        xlab = "Tiempo", ylab = "Variables")
+```
+
+# Lista de verificación
+
+Antes de la Escuela, revisa si puedes:
+
+- [ ] Ejecutar código y producir gráficas en RStudio (o en tu lenguaje).
+- [ ] Identificar los parámetros, las condiciones iniciales y las ecuaciones del modelo SIR.
+- [ ] Resolver el SIR numéricamente y graficar $S$, $I$ y $R$.
+- [ ] (Opcional) Resolver un segundo modelo.
