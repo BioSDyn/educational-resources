@@ -61,10 +61,14 @@ modulo-1/
 - Patrocinadores: SMB, ICTI, CCM-UNAM.
 - Algunas imágenes e ideas provienen de las fuentes citadas en la bibliografía del material didáctico; las imágenes de terceros conservan los créditos indicados en las diapositivas.
 
-## Licencia y cómo citar
+## Cómo citar
 
-*Pendiente: indicar la licencia (por ejemplo, CC BY 4.0) y la forma de citar este recurso.*
+Si usas este material, por favor cítalo así:
+
+> Trejo, I. (2026). *Módulo 1: Construcción de modelos matemáticos de sistemas biológicos dinámicos*
+> [Material didáctico]. Escuela de Biología Matemática, CCM-UNAM. BioSDyn.
+> https://github.com/BioSDyn/educational-resources/tree/main/michoacan-school-2026/modulo-1
 
 ## Contacto
 
-*Pendiente: correo o página del grupo BioSDyn.*
+https://www.matmor.unam.mx/personal/investigadores/imelda
