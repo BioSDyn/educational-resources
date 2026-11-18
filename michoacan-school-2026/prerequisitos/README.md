@@ -10,5 +10,5 @@ Puede ser R/RStudio, Python, MATLAB, u otro. Los estudiantes del Proyecto 1 debe
 
 Repaso 1 (opcional): cálculo diferencial y EDO. Incluye soluciones, existencia y unicidad, y la ecuación logística.
 
-Repaso 2 (obligatorio para el proyecto 1): solución numérica de EDO con el modelo SIR en R.
+Repaso 2 (obligatorio para el proyecto 1): solución numérica de EDO con el modelo SIR en Rstudio.
 
