@@ -3,8 +3,12 @@
 Antes del lunes 30 de noviembre, por favor haz lo siguiente:
 
 1. Ten funcionando un programa que resuelva ecuaciones diferenciales ordinarias (EDO) numéricamente.
-Puede ser R/RStudio, Python, MATLAB, u otro. Los estudiantes del Proyecto 1 deben usar R y RStudio.
-2. Repasa los conceptos importantes de EDO: teorema de existencia y unicidad, problema de valor inicial. 
+Puede ser R/RStudio, Python (Spyder Interface), MATLAB, u otro.
+
+- Los estudiantes del Proyecto 1 deben usar R y RStudio (obligatorio).
+  
+3. Repasar los conceptos importantes de EDO: teorema de existencia y unicidad, problema de valor inicial.
+4. Repasar de conceptos básicos en probabilidad y estadística: teorema de Bayes, función de verosimilitud
 
 ## Sugerencia de material
 
