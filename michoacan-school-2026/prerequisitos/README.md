@@ -10,5 +10,12 @@ Puede ser R/RStudio, Python, MATLAB, u otro. Los estudiantes del Proyecto 1 debe
 
 Repaso 1 (opcional): cálculo diferencial y EDO. Incluye soluciones, existencia y unicidad, y la ecuación logística.
 
+https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026/prerequisitos/Repaso_1_opcional_ecuaciones_diferenciales.pdf
+
 Repaso 2 (obligatorio para el proyecto 1): solución numérica de EDO con el modelo SIR en Rstudio.
 
+https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026/prerequisitos/Repaso_ODE_numerico.Rmd
+
+Al ejecutar correctamente el script  Repaso_ODE_numerico.Rmd con knit debe obter un hatmel como se muestra en este archivo
+
+https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026/prerequisitos/Repaso_2_obligatorio_soluci%C3%B3n_num%C3%A9rica_ecuaciones_diferenciales.pdf
