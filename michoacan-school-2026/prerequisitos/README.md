@@ -14,8 +14,8 @@ https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026
 
 Repaso 2 (obligatorio para el proyecto 1): solución numérica de EDO con el modelo SIR en Rstudio.
 
-https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026/prerequisitos/Repaso_ODE_numerico.Rmd
-
-Al ejecutar correctamente el script  Repaso_ODE_numerico.Rmd con knit debe obter un hatmel como se muestra en este archivo
+Descarga el archivo **Repaso_ODE_numerico.Rmd** en tu laptop y ejecutalo en tu interface Rstudio. Al ejecutar correctamente el script Repaso_ODE_numerico.Rmd 
+con el **Knit** debe obter un archivo html como se muestra en este archivo
 
 https://github.com/BioSDyn/educational-resources/blob/main/michoacan-school-2026/prerequisitos/Repaso_2_obligatorio_soluci%C3%B3n_num%C3%A9rica_ecuaciones_diferenciales.pdf
+
